@@ -3,6 +3,10 @@ const router = Router()
 const { generatePDF } = require('../pdf/index')
 
 router.get('/', async(req, res) => {
+  res.send('Hello Bitch!')
+})
+
+router.get('/export', async(req, res) => {
   try{
     const filename = 'finanzas'
     // TODO: agregar los valores
