@@ -73,7 +73,9 @@ const generatePDF = async(options) => {
       doc.rect(20, 100, 350, 30).fillAndStroke('#e5e5e5')
       doc.fillAndStroke('black')
       doc.rect(20, 100, 350, 30).stroke()
+      doc.font('Times-Bold')
       doc.text('Ingresos', 23, 108,9,9, {align: 'right'})
+      doc.font('Times-Roman')
 
       doc.rect(20, 130, 350, 30).stroke()
       doc.rect(20, 160, 350, 30).stroke()
@@ -81,6 +83,13 @@ const generatePDF = async(options) => {
       doc.rect(20, 220, 350, 30).stroke()
       //doc.rect(20, 250, 350, 30).stroke()
       //doc.rect(20, 280, 350, 30).stroke()
+
+      doc.rect(390, 100, 350, 30).fillAndStroke('#e5e5e5')
+      doc.fillAndStroke('black')
+      doc.rect(390, 100, 350, 30).stroke()
+      doc.font('Times-Bold')
+      doc.text('Monto', 405, 108, 350,9, {align: 'right'})
+      doc.font('Times-Roman')
 
       doc.rect(390, 130, 350, 30).stroke()
       doc.rect(390, 160, 350, 30).stroke()
@@ -90,13 +99,22 @@ const generatePDF = async(options) => {
       doc.rect(20, 325, 350, 30).fillAndStroke('#e5e5e5')
       doc.fillAndStroke('black')
       doc.rect(20, 325, 350, 30).stroke()
+      doc.font('Times-Bold')
       doc.text('Egresos', 23, 333,9,9, {align: 'right'})
+      doc.font('Times-Roman')
 
       doc.rect(20, 355, 350, 30).stroke()
       doc.rect(20, 385, 350, 30).stroke()
       doc.rect(20, 415, 350, 30).stroke()
       doc.rect(20, 445, 350, 30).stroke()
       //doc.rect(20, 475, 350, 30).stroke()
+
+      doc.rect(390, 325, 350, 30).fillAndStroke('#e5e5e5')
+      doc.fillAndStroke('black')
+      doc.rect(390, 325, 350, 30).stroke()
+      doc.font('Times-Bold')
+      doc.text('Monto', 405, 333, 350,9, {align: 'right'})
+      doc.font('Times-Roman')
 
       doc.rect(390, 355, 350, 30).stroke()
       doc.rect(390, 385, 350, 30).stroke()
@@ -106,7 +124,9 @@ const generatePDF = async(options) => {
       doc.rect(20, 543, 350, 30).fillAndStroke('#e5e5e5')
       doc.fillAndStroke('black')
       doc.rect(20, 543, 350, 30).stroke()
+      doc.font('Times-Bold')
       doc.text('Total', 23, 550,9,9, {align: 'right'})
+      doc.font('Times-Roman')
 
       doc.rect(390, 543, 350, 30).stroke()
 
