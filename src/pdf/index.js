@@ -40,9 +40,9 @@ const generatePDF = async(options) => {
       doc.font('Times-Roman')
       doc.fontSize(18)
 
-      let w = 295
+      //let w = 295
       let x = 108
-      let y = 276
+      //let y = 276
       let z = 100
 
       // first section
