@@ -40,49 +40,18 @@ const generatePDF = async(options) => {
       doc.font('Times-Roman')
       doc.fontSize(18)
 
-      doc.text('Platos vendidos la primera semana', 23, 138,9,9, {align: 'right'})
-      doc.text('Platos vendidos la segunda semana', 23, 168,9,9, {align: 'right'})
-      doc.text('Platos vendidos la tercera semana', 23, 198,9,9, {align: 'right'})
-      doc.text('Platos vendidos la cuarta semana', 23, 228,9,9, {align: 'right'})
-      //doc.text('Saldo inicial', 23, 258,9,9, {align: 'right'})
-      //doc.text('Saldo inicial', 23, 288,9,9, {align: 'right'})
+      let w = 295
+      let x = 108
+      let y = 276
+      let z = 100
 
-      doc.text('Insumos', 23, 363,9,9, {align: 'right'})
-      doc.text('Sueldo personal', 23, 393,9,9, {align: 'right'})
-      doc.text('Arriendo local', 23, 423,9,9, {align: 'right'})
-      doc.text('Publicidad', 23, 453,9,9, {align: 'right'})
-      //doc.text('Saldo inicial', 23, 483,9,9, {align: 'right'})
-
-
-      //doc.text(fakevalue, 403, 108, 350, 30, {align: 'left'})
-      doc.text(fakevalue, 403, 138, 350, 30, {align: 'left'})
-      doc.text(fakevalue, 403, 168, 350, 30, {align: 'left'})
-      doc.text(fakevalue, 403, 198, 350, 30, {align: 'left'})
-      doc.text(fakevalue, 403, 228, 350, 30, {align: 'left'})
-      //doc.text(fakevalue, 403, 258, 350, 30, {align: 'left'})
-      //doc.text(fakevalue, 403, 288, 350, 30, {align: 'left'})
-
-      doc.text(fakevalue, 403, 363, 350, 30, {align: 'left'})
-      doc.text(fakevalue, 403, 393, 350, 30, {align: 'left'})
-      doc.text(fakevalue, 403, 423, 350, 30, {align: 'left'})
-      doc.text(fakevalue, 403, 453, 350, 30, {align: 'left'})
-      //doc.text(fakevalue, 403, 475, 350, 30, {align: 'left'})
-
-      doc.text(fakevalue, 403, 550, 350, 30, {align: 'left'})
-
+      // first section
       doc.rect(20, 100, 350, 30).fillAndStroke('#e5e5e5')
       doc.fillAndStroke('black')
       doc.rect(20, 100, 350, 30).stroke()
       doc.font('Times-Bold')
       doc.text('Ingresos', 23, 108,9,9, {align: 'right'})
       doc.font('Times-Roman')
-
-      doc.rect(20, 130, 350, 30).stroke()
-      doc.rect(20, 160, 350, 30).stroke()
-      doc.rect(20, 190, 350, 30).stroke()
-      doc.rect(20, 220, 350, 30).stroke()
-      //doc.rect(20, 250, 350, 30).stroke()
-      //doc.rect(20, 280, 350, 30).stroke()
 
       doc.rect(390, 100, 350, 30).fillAndStroke('#e5e5e5')
       doc.fillAndStroke('black')
@@ -91,44 +60,47 @@ const generatePDF = async(options) => {
       doc.text('Monto', 405, 108, 350,9, {align: 'right'})
       doc.font('Times-Roman')
 
-      doc.rect(390, 130, 350, 30).stroke()
-      doc.rect(390, 160, 350, 30).stroke()
-      doc.rect(390, 190, 350, 30).stroke()
-      doc.rect(390, 220, 350, 30).stroke()
+      for (let i = 0; i < 4; i++) {
+        // fist section
+        doc.text('Platos vendidos la primera semana', 23, x += 30,9,9, {align: 'right'})
+        doc.rect(20, z += 30, 350, 30).stroke()
+        doc.text(fakevalue, 403, x, 350, 30, {align: 'left'})
+        doc.rect(390, z, 350, 30).stroke()
+      }
 
-      doc.rect(20, 325, 350, 30).fillAndStroke('#e5e5e5')
+      // second section
+      doc.rect(20, z += 60, 350, 30).fillAndStroke('#e5e5e5')
       doc.fillAndStroke('black')
-      doc.rect(20, 325, 350, 30).stroke()
+      doc.rect(20, z, 350, 30).stroke()
       doc.font('Times-Bold')
-      doc.text('Egresos', 23, 333,9,9, {align: 'right'})
+      doc.text('Egresos', 23, x += 60,9,9, {align: 'right'})
       doc.font('Times-Roman')
 
-      doc.rect(20, 355, 350, 30).stroke()
-      doc.rect(20, 385, 350, 30).stroke()
-      doc.rect(20, 415, 350, 30).stroke()
-      doc.rect(20, 445, 350, 30).stroke()
-      //doc.rect(20, 475, 350, 30).stroke()
-
-      doc.rect(390, 325, 350, 30).fillAndStroke('#e5e5e5')
+      doc.rect(390, z , 350, 30).fillAndStroke('#e5e5e5')
       doc.fillAndStroke('black')
-      doc.rect(390, 325, 350, 30).stroke()
+      doc.rect(390, z, 350, 30).stroke()
       doc.font('Times-Bold')
-      doc.text('Monto', 405, 333, 350,9, {align: 'right'})
+      doc.text('Monto', 405, x, 350,9, {align: 'right'})
       doc.font('Times-Roman')
 
-      doc.rect(390, 355, 350, 30).stroke()
-      doc.rect(390, 385, 350, 30).stroke()
-      doc.rect(390, 415, 350, 30).stroke()
-      doc.rect(390, 445, 350, 30).stroke()
+      for (let i = 0; i < 4; i++) {
+        // second section
+        doc.text('Insumos', 23, x += 30,9,9, {align: 'right'})
+        doc.rect(20, z += 30, 350, 30).stroke()
+        doc.text(fakevalue, 403, x, 350, 30, {align: 'left'})
+        doc.rect(390, z, 350, 30).stroke()
+      }
 
-      doc.rect(20, 543, 350, 30).fillAndStroke('#e5e5e5')
+      // third section
+      doc.rect(20, z += 60, 350, 30).fillAndStroke('#e5e5e5')
       doc.fillAndStroke('black')
-      doc.rect(20, 543, 350, 30).stroke()
+      doc.rect(20, z, 350, 30).stroke()
       doc.font('Times-Bold')
-      doc.text('Total', 23, 550,9,9, {align: 'right'})
+      doc.text('Total', 23, x += 60,9,9, {align: 'right'})
       doc.font('Times-Roman')
 
-      doc.rect(390, 543, 350, 30).stroke()
+      doc.text(fakevalue, 403, x, 350, 30, {align: 'left'})
+      doc.rect(390, z, 350, 30).stroke()
 
       doc.end();
     } catch (e) {
@@ -138,18 +110,18 @@ const generatePDF = async(options) => {
   })
 }
 
-if( require.main == module ){
-  const args = process.argv;
+//if( require.main == module ){
+  //const args = process.argv;
 
-  generatePDF()
-    .then(buffer => {
-      const filePath = path.join(__dirname, 'finanzas.pdf')
-      fs.writeFileSync(filePath, buffer)
-      console.log(`File created ${filePath}`)
-    })
-    .catch(e => {
-      console.log(e);
-    })
-}
+  //generatePDF()
+    //.then(buffer => {
+      //const filePath = path.join(__dirname, 'sample.pdf')
+      //fs.writeFileSync(filePath, buffer)
+      //console.log(`File created ${filePath}`)
+    //})
+    //.catch(e => {
+      //console.log(e);
+    //})
+//}
 
 module.exports.generatePDF = generatePDF;
