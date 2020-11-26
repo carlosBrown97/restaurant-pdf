@@ -10,11 +10,12 @@ var connection = mysql.createConnection({
 
 connection.connect()
 
-connection.query('SELECT * FROM orders_completed', function(err, rows) {
+const data = connection.query('SELECT * FROM orders_completed', function(err, rows) {
   if (err) {
     console.log('ERROR', err.stack)
   }
   console.log('DATA', rows)
+  return rows
 })
 
 connection.end()

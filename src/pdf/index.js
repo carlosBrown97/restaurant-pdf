@@ -1,6 +1,7 @@
 const fs = require('fs');
 const path = require('path')
 const pdfKit = require('pdfkit');
+const { data } = require('../connection')
 
 const generatePDF = async(options) => {
   console.log('Starting generate pdf...')
@@ -45,6 +46,7 @@ const generatePDF = async(options) => {
       //let y = 276
       let z = 100
 
+      console.log('DATA', data)
       // first section
       doc.rect(20, 100, 350, 30).fillAndStroke('#e5e5e5')
       doc.fillAndStroke('black')
