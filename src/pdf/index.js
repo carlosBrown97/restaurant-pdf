@@ -11,7 +11,7 @@ const generatePDF = async(options) => {
       size: 'LETTER',
       layout: 'landscape',
       autoFirstPage: false,
-      margins: { left: 30, right: 50, top: 30, bottom: 30 },
+      margins: { left: 30, right: 30, top: 30, bottom: 30 },
     })
 
     let buffers = []
@@ -46,7 +46,8 @@ const generatePDF = async(options) => {
       //let y = 276
       let z = 100
 
-      console.log('DATA', data)
+      let orders_completed = options.filter(x => x.status === 'Finalizado')
+      //console.log('DATA', orders_completed)
       // first section
       doc.rect(20, 100, 350, 30).fillAndStroke('#e5e5e5')
       doc.fillAndStroke('black')
@@ -62,11 +63,32 @@ const generatePDF = async(options) => {
       doc.text('Monto', 405, 108, 350,9, {align: 'right'})
       doc.font('Times-Roman')
 
-      for (let i = 0; i < 4; i++) {
+      const aaa = orders_completed.reduce((acc, item) => {
+        if (!acc[item.name]) {
+          //console.log('ITEM', item.quantity)
+          //console.log('ITEM 2', parseInt(item.quantity))
+          acc[item.name] = parseInt(item.quantity)
+        }else{
+          acc[item.name] += parseInt(item.quantity)
+        }
+        return acc
+      }, [])
+
+      const bbb = orders_completed.reduce((acc, item) => {
+        if (!acc[item.name]) {
+          acc[item.name] = item.price
+        }
+        return acc
+      }, [])
+
+      const ccc = Object.keys(aaa)
+      console.log('ACC', ccc)
+      for await(let order of ccc) {
+        console.log('Order', order)
         // fist section
-        doc.text('Platos vendidos la primera semana', 23, x += 30,9,9, {align: 'right'})
+        doc.text(`${order} x ${aaa[order]}`, 23, x += 30,9,9, {align: 'right'})
         doc.rect(20, z += 30, 350, 30).stroke()
-        doc.text(fakevalue, 403, x, 350, 30, {align: 'left'})
+        doc.text(bbb[order] * aaa[order], 403, x, 350, 30, {align: 'left'})
         doc.rect(390, z, 350, 30).stroke()
       }
 
@@ -105,6 +127,7 @@ const generatePDF = async(options) => {
       doc.rect(390, z, 350, 30).stroke()
 
       doc.end();
+      console.log('Pdf generate successfully!')
     } catch (e) {
       console.log(e);
       return reject(e);
@@ -112,18 +135,18 @@ const generatePDF = async(options) => {
   })
 }
 
-//if( require.main == module ){
-  //const args = process.argv;
+if( require.main == module ){
+  const args = process.argv;
 
-  //generatePDF()
-    //.then(buffer => {
-      //const filePath = path.join(__dirname, 'sample.pdf')
-      //fs.writeFileSync(filePath, buffer)
-      //console.log(`File created ${filePath}`)
-    //})
-    //.catch(e => {
-      //console.log(e);
-    //})
-//}
+  generatePDF()
+    .then(buffer => {
+      const filePath = path.join(__dirname, 'sample.pdf')
+      fs.writeFileSync(filePath, buffer)
+      console.log(`File created ${filePath}`)
+    })
+    .catch(e => {
+      console.log(e);
+    })
+}
 
 module.exports.generatePDF = generatePDF;

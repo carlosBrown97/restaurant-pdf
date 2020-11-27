@@ -14,7 +14,7 @@ const data = connection.query('SELECT * FROM orders_completed', function(err, ro
   if (err) {
     console.log('ERROR', err.stack)
   }
-  console.log('DATA', rows)
+  //console.log('DATA 1', rows)
   return rows
 })
 
