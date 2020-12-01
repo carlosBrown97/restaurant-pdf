@@ -63,13 +63,14 @@ const generatePDF = async(options) => {
       doc.text('Monto', 405, 108, 350,9, {align: 'right'})
       doc.font('Times-Roman')
 
+      let totalFirstSection = 0
       const aaa = orders_completed.reduce((acc, item) => {
         if (!acc[item.name]) {
-          //console.log('ITEM', item.quantity)
-          //console.log('ITEM 2', parseInt(item.quantity))
           acc[item.name] = parseInt(item.quantity)
+          totalFirstSection += item.price * item.quantity
         }else{
           acc[item.name] += parseInt(item.quantity)
+          totalFirstSection += item.price * item.quantity
         }
         return acc
       }, [])
@@ -82,13 +83,14 @@ const generatePDF = async(options) => {
       }, [])
 
       const ccc = Object.keys(aaa)
-      console.log('ACC', ccc)
+      //console.log('ACC', totalFirstSection)
       for await(let order of ccc) {
-        console.log('Order', order)
         // fist section
+        let newtotalfirstsection = new Intl.NumberFormat('es-ES').format(bbb[order] * aaa[order])
+        //console.log('Order', order)
         doc.text(`${order} x ${aaa[order]}`, 23, x += 30,9,9, {align: 'right'})
         doc.rect(20, z += 30, 350, 30).stroke()
-        doc.text(bbb[order] * aaa[order], 403, x, 350, 30, {align: 'left'})
+        doc.text(`$${newtotalfirstsection}`, 403, x, 350, 30, {align: 'left'})
         doc.rect(390, z, 350, 30).stroke()
       }
 
@@ -107,23 +109,47 @@ const generatePDF = async(options) => {
       doc.text('Monto', 405, x, 350,9, {align: 'right'})
       doc.font('Times-Roman')
 
-      for (let i = 0; i < 4; i++) {
+      const secondpart = [
+        {
+          name: 'Insumos',
+          price: 100000
+        },
+        {
+          name: 'Sueldos del personal',
+          price: 1000000
+        },
+        {
+          name: 'Gastos extra',
+          price: 30000
+        }
+      ]
+
+      let totalSecondSection = 0
+      for await(let second of secondpart) {
+        let newtotalsecondsection =  new Intl.NumberFormat('es-ES').format(second.price)
         // second section
-        doc.text('Insumos', 23, x += 30,9,9, {align: 'right'})
+        doc.text(second.name, 23, x += 30,9,9, {align: 'right'})
         doc.rect(20, z += 30, 350, 30).stroke()
-        doc.text(fakevalue, 403, x, 350, 30, {align: 'left'})
+        doc.text(`$${newtotalsecondsection}`, 403, x, 350, 30, {align: 'left'})
+        totalSecondSection += second.price
         doc.rect(390, z, 350, 30).stroke()
       }
 
+      let total = 0
+      //console.log('FIRST', totalFirstSection)
+      //console.log('SECOND', totalSecondSection)
+      total = totalFirstSection - totalSecondSection
+      let newtotal = new Intl.NumberFormat('es-ES').format(total)
+      //console.log('newtotal', newtotal)
       // third section
       doc.rect(20, z += 60, 350, 30).fillAndStroke('#e5e5e5')
       doc.fillAndStroke('black')
       doc.rect(20, z, 350, 30).stroke()
       doc.font('Times-Bold')
-      doc.text('Total', 23, x += 60,9,9, {align: 'right'})
+      doc.text('Total ganancias', 23, x += 60,9,9, {align: 'right'})
       doc.font('Times-Roman')
 
-      doc.text(fakevalue, 403, x, 350, 30, {align: 'left'})
+      doc.text(`$${newtotal}`, 403, x, 350, 30, {align: 'left'})
       doc.rect(390, z, 350, 30).stroke()
 
       doc.end();
